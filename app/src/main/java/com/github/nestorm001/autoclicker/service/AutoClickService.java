@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.github.nestorm001.autoclicker.Extensions;
@@ -63,6 +64,22 @@ public class AutoClickService extends AccessibilityService {
                 .addStroke(new GestureDescription.StrokeDescription(path, 10, 10))
                 .build();
         dispatchGesture(gestureDescription, null, null);
+    }
+
+    public void swipe(int x1, int y1, int x2, int y2) {
+        //Extensions.logd(String.format("click %d %d", x1, y2));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return;
+
+        final Path path = new Path();
+        path.moveTo(x1, y1);
+        path.lineTo(x2, y2);
+        final GestureDescription.Builder gestureBuilder  = new GestureDescription.Builder();
+
+        gestureBuilder.addStroke(new GestureDescription.StrokeDescription(path, 10, 350));
+
+        dispatchGesture(gestureBuilder.build(), null
+        , null);
+
     }
 
     /**

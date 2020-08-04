@@ -85,6 +85,8 @@ public class FloatingClickService extends Service {
      * In short, it turns on and off the clicking function.
      */
     private void viewOnClick() {
+
+
         if (isOn) {
             if (timer != null) {
                 timer.cancel();
@@ -96,11 +98,29 @@ public class FloatingClickService extends Service {
                 public void run() {
                     view.getLocationOnScreen(location);
                     if (autoClickService != null) {
+
+                        /*
+                        autoClickService.swipe(400,
+                                1500, 800, 1500);
+
+                         */
+
+                        /*
+                        autoClickService.click(1000,
+                                1500);
+
+                         */
+                        /*
                         autoClickService.click(location[0] + ((TextView) view).getRight() + 10,
+                                location[1] + ((TextView) view).getBottom() + 10);
+
+                         */
+                        autoClickService.swipe(location[0] + ((TextView) view).getRight() + 10,
+                                location[1] + ((TextView) view).getBottom() + 10, location[0] + ((TextView) view).getRight() + 410,
                                 location[1] + ((TextView) view).getBottom() + 10);
                     }
                 }
-            }, 0, 200);
+            }, 0, 2000);
         }
         isOn = !isOn;
         ((TextView) view).setText(isOn ? "ON" : "OFF");
